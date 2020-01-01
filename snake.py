@@ -1,6 +1,7 @@
 from gpiozero import PiHutXmasTree
 from gpiozero.tools import random_values
 from time import sleep
+from random import choice
 
 def reset(lights):
   for light in lights:
@@ -59,13 +60,13 @@ def blink(lights):
         light.off()
 
 
-def dnb(tree):
+def dnb(lights):
   for r in range(1, 6):
     for _ in range(2, 2**r):
-      for light in tree:
+      for light in lights:
         light.on()
       sleep(1/(2**r))
-      for light in tree:
+      for light in lights:
         light.off()
       sleep(1/(2**r))
 
@@ -81,9 +82,7 @@ reset(lights)
 tree.star.source_delay = 0.1
 tree.star.source = random_values()
 
+effects = [snake, chase, flicker, blink, dnb]
+
 while True:
-  snake(lights)
-  chase(lights)
-  flicker(lights)
-  blink(lights)
-  dnb(tree)
+  choice(effects)(lights)
