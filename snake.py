@@ -54,10 +54,12 @@ def blink(lights, tree):
   for _ in range(8):
     thirds = len(lights) // 3
     for i in range(3):
-      for light in tree[i*thirds:(i+1)*thirds]:
+      start = 1 + i * thirds
+      end = 1 + (i + 1) * thirds
+      for light in tree[start:end]:
         light.on()
       sleep(0.2)
-      for light in tree[i*thirds:(i+1)*thirds]:
+      for light in tree[start:end]:
         light.off()
 
 
